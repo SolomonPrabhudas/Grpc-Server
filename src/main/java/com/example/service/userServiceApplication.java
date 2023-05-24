@@ -1,24 +1,25 @@
-package user;
+package com.example.service;
 
-import com.sample.javastubs.User.APIResponse;
-import com.sample.javastubs.User.Empty;
-import com.sample.javastubs.User.LoginRequest;
-import com.sample.javastubs.userServiceGrpc.userServiceImplBase;
+import com.example.javastubs.User;
+import com.example.javastubs.userServiceGrpc;
+import com.example.javastubs.User.APIResponse;
+import com.example.javastubs.User.Empty;
+import com.example.javastubs.User.LoginRequest;
 
 import io.grpc.stub.StreamObserver;
 
-public class userServiceApplication extends userServiceImplBase 
+public class userServiceApplication extends userServiceGrpc.userServiceImplBase 
 {
 
 	@Override
-	public void login(LoginRequest request, StreamObserver<APIResponse> responseObserver)
+	public void login(User.LoginRequest request, StreamObserver<User.APIResponse> responseObserver)
 	{
 		System.out.println("Inside login method");
 		
 		String username = request.getUsername();
 		String password = request.getPassword();
 		
-		APIResponse.Builder response = APIResponse.newBuilder();
+		User.APIResponse.Builder response = User.APIResponse.newBuilder();
 		
 		if(username.equals(password))
 		{

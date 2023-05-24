@@ -5,34 +5,33 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.6</version>
+		<version>3.0.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Sample-Grpc-Service</artifactId>
+	<artifactId>Sample-Grpc-Server-Service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Sample-Grpc-Service</name>
+	<name>Sample-Grpc-Server-Service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		
-		<!-- Spring Boot dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
@@ -111,18 +110,47 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-		</plugins>
-	</build>
-
-	<!--
-	<build>
-		<plugins>
+			
 			<plugin>
+      			<groupId>org.apache.maven.plugins</groupId>
+      			<artifactId>maven-jar-plugin</artifactId>
+      			<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>dependency-jars/</classpathPrefix>
+							<mainClass>com.example.demo.GrpcServer</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+    		</plugin>
+    		
+    		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			<!--	<version>2.5.1</version>   -->
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+		   	 				<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+		    				<outputDirectory>
+                          		${project.build.directory}/dependency-jars/
+                    		</outputDirectory>
+						</configuration>
+	    			</execution>
+				</executions>
+  			</plugin>
+    		
+    		<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
 		</plugins>
 	</build>
-	-->
 
 </project>
